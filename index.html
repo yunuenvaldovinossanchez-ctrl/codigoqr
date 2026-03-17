@@ -51,13 +51,17 @@ function onScanSuccess(text){
 
     scanner.clear();
 
-    if(text.startsWith("http")){
-        resultado.innerHTML += "<br><br><button onclick='abrirLink(\"" + text + "\")'>Abrir enlace</button>";
+    if(text.startsWith("http") || text.startsWith("www")){
+        
+        let url = text.startsWith("http") ? text : "https://" + text;
+
+        resultado.innerHTML += "<br><br><button onclick='abrirLink(\"" + url + "\")'>Abrir enlace</button>";
     }
 }
 
 function abrirLink(url){
-    window.open(url, "_blank");
+    
+    window.location.href = url;
 }
 
 let scanner = new Html5QrcodeScanner("reader", { fps:10, qrbox:250 });
