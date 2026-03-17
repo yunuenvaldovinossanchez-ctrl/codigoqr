@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+    margin-top: 40px;
+}
+#reader{
+    width:300px;
+    margin:auto;
+}
+#resultado{
+    margin-top:20px;
+    font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Escáner QR</h2>
+
+<div id="reader"></div>
+<p id="resultado">Esperando escaneo...</p>
+
+<script>
+
+let escaneado = false;
+
+function onScanSuccess(text){
+    if(escaneado) return;
+    escaneado = true;
+
+    document.getElementById("resultado").innerHTML = "Código: " + text;
+
+    scanner.clear();
+
+    if(text.startsWith("http")){
+        window.open(text, "_blank");
+    }
+}
+
+let scanner = new Html5QrcodeScanner("reader", { fps:10, qrbox:250 });
+
+scanner.render(onScanSuccess);
+
+</script>
+
+</body>
+</html>
